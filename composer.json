@@ -1,0 +1,40 @@
+{
+    "name": "xloit/xloit-bridge-zend-modulemanager",
+    "type": "library",
+    "description": "Xloit Bridge Zend ModuleManager Library",
+    "keywords": [
+        "xloit",
+        "zend-modulemanager",
+        "library"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yudha Setiawan",
+            "email": "me@yudhasetiawan.com",
+            "homepage": "http://yudhasetiawan.com/"
+        }
+    ],
+    "require": {
+        "php": "^5.4 || ^7.0",
+        "xloit/xloit-exception": "^0.0",
+        "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
+        "zendframework/zend-modulemanager": "^2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "zendframework/zend-mvc": "^2.7 || ^3.0"
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Xloit\\Bridge\\Zend\\ModuleManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Xloit\\Bridge\\Zend\\ModuleManager\\Test\\": "tests/"
+        }
+    }
+}

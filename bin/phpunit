@@ -1,0 +1,72 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------------------------
+# I distribute a shell script that contains everything you need in order to use PHPUnit.
+# Simply run it from here, make it executable.
+# Please refer to the documentation for details on (https://phpunit.de).
+#
+# Author: Yudha Setiawan <me@yudhasetiawan.com>
+#-------------------------------------------------------------------------------------------------
+
+_dir="$(dirname "$(dirname "$0")")"
+_dir="$(realpath "$_dir")"
+_phpunit_config="$_dir/phpunit.xml"
+
+print_info() {
+    echo -e "\e[1;34mInfo:\e[0m $1.";
+}
+
+print_error() {
+    echo -e "\e[0;31mError:\e[0m $1.";
+}
+
+print_warning() {
+    echo -e "\e[0;33mWarning:\e[0m $1.";
+}
+
+print_info "The current working directory: \e[0;33m$_dir\e[0m\n"
+
+## Use phpunit.xml.dist if phpunit.xml does not exists
+if test ! -f "$_phpunit_config"; then
+    _phpunit_config="$_phpunit_config.dist"
+    
+    print_warning "PHP Unit config does not exists"
+    print_warning "Use default config. (\e[0;33m$_phpunit_config\e[0m)\n"
+fi
+
+## Die if phpunit config does not exists
+if test ! -f "$_phpunit_config"; then
+    print_warning "PHP Unit config does not exists. (\e[0;33m$_phpunit_config\e[0m)"
+    
+    exit 1
+fi
+
+if hash phpunit 2>/dev/null; then
+    exec phpunit --configuration="$_phpunit_config"
+else
+    ## Die if phpunit shell script does not exists
+    if test ! -f "$_dir/vendor/bin/phpunit"; then
+        print_warning "This script require \"phpunit\" but it's not installed. (\e[0;34mDownloading\e[0m)"
+        print_info "Install dependencies via composer. (\e[0;33mInstalling\e[0m)"
+        
+        if hash composer 2>/dev/null; then
+            exec composer install
+        else
+            exec curl -sS https://getcomposer.org/installer | php --install-dir="$_dir" --
+
+            exec php composer.phar install
+        fi
+
+        if test ! -f "$_dir/vendor/bin/phpunit"; then
+            if hash composer 2>/dev/null; then
+                exec composer require phpunit/phpunit
+            else
+                exec php composer.phar require phpunit/phpunit
+            fi  
+        fi
+    fi
+
+    exec "$_dir/vendor/bin/phpunit" --configuration="$_phpunit_config"
+fi
+
+exit 0
