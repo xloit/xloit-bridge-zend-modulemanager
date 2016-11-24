@@ -87,15 +87,15 @@ class AbstractModule
     /**
      *
      *
-     * @param ModuleManagerInterface $ModuleManager
+     * @param ModuleManagerInterface $moduleManager
      *
      * @return void
      */
-    public function init(ModuleManagerInterface $ModuleManager)
+    public function init(ModuleManagerInterface $moduleManager)
     {
         //TODO : Remember to keep the init() method as lightweight as possible
-        $this->modules = $ModuleManager->getModules();
-        $events        = $ModuleManager->getEventManager();
+        $this->modules = $moduleManager->getModules();
+        $events        = $moduleManager->getEventManager();
         $sharedManager = $events->getSharedManager();
 
         if ($this instanceof Feature\ModuleLoadPostListenerInterface) {
