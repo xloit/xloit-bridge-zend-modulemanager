@@ -17,6 +17,7 @@
 
 namespace Xloit\Bridge\Zend\ModuleManager;
 
+use ReflectionException;
 use Xloit\Bridge\Zend\ModuleManager\Feature\DirectoryProviderTrait;
 use Xloit\Bridge\Zend\ModuleManager\Feature\NamespaceProviderTrait;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -41,6 +42,9 @@ use Zend\ModuleManager\ModuleEvent;
 use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Loader\StandardAutoloader;
+use Zend\Loader\ClassMapAutoloader;
+use Zend\Mvc\Application;
 
 /**
  * An {@link AbstractModule} abstract class.
@@ -99,7 +103,6 @@ class AbstractModule
         $sharedManager = $events->getSharedManager();
 
         if ($this instanceof Feature\ModuleLoadPostListenerInterface) {
-            /** @noinspection PhpUndefinedCallbackInspection */
             $events->attach(
                 ModuleEvent::EVENT_LOAD_MODULES_POST,
                 [
@@ -110,7 +113,6 @@ class AbstractModule
         }
 
         if ($this instanceof Feature\ApplicationDispatchListenerInterface) {
-            /** @noinspection PhpUndefinedCallbackInspection */
             $events->attach(
                 MvcEvent::EVENT_DISPATCH,
                 [
@@ -121,7 +123,6 @@ class AbstractModule
         }
 
         if ($this instanceof Feature\ApplicationDispatchErrorListenerInterface) {
-            /** @noinspection PhpUndefinedCallbackInspection */
             $events->attach(
                 MvcEvent::EVENT_DISPATCH_ERROR,
                 [
@@ -131,11 +132,10 @@ class AbstractModule
             );
         }
 
-        if (strpos(php_sapi_name(), 'cli') !== 0) {
+        if (strpos(PHP_SAPI, 'cli') !== 0) {
             if ($this instanceof Feature\RoutePrepareListenerInterface) {
-                /** @noinspection PhpUndefinedCallbackInspection */
                 $sharedManager->attach(
-                    'Zend\Mvc\Application',
+                    Application::class,
                     MvcEvent::EVENT_ROUTE,
                     [
                         $this,
@@ -146,9 +146,8 @@ class AbstractModule
             }
 
             if ($this instanceof Feature\RoutePostListenerInterface) {
-                /** @noinspection PhpUndefinedCallbackInspection */
                 $sharedManager->attach(
-                    'Zend\Mvc\Application',
+                    Application::class,
                     MvcEvent::EVENT_ROUTE,
                     [
                         $this,
@@ -176,6 +175,7 @@ class AbstractModule
      * Get autoloader config.
      *
      * @return array
+     * @throws \ReflectionException
      */
     public function getAutoloaderConfig()
     {
@@ -184,10 +184,10 @@ class AbstractModule
         $classmap   = $directory . DIRECTORY_SEPARATOR . '../autoload_classmap.php';
 
         if (file_exists($classmap)) {
-            $autoloader['Zend\Loader\ClassMapAutoloader'] = [$classmap];
+            $autoloader[ClassMapAutoloader::class] = [$classmap];
         }
 
-        $autoloader['Zend\Loader\StandardAutoloader'] = [
+        $autoloader[StandardAutoloader::class] = [
             'namespaces' => [
                 $this->getNamespace() => $directory . DIRECTORY_SEPARATOR . 'src'
             ]
@@ -356,7 +356,14 @@ class AbstractModule
     protected function getModuleConfig($configName)
     {
         if (!array_key_exists($configName, $this->moduleConfig)) {
-            $this->moduleConfig[$configName] = $this->getFileConfig($configName);
+            $config = [];
+
+            try {
+                $config = $this->getFileConfig($configName);
+            } catch (ReflectionException $e) {
+            }
+
+            $this->moduleConfig[$configName] = $config;
         }
 
         return $this->moduleConfig[$configName];
