@@ -18,7 +18,6 @@
 namespace Xloit\Bridge\Zend\ModuleManager\Feature;
 
 use ReflectionClass;
-use Xloit\Bridge\Zend\ModuleManager\Exception;
 
 /**
  * A {@link DirectoryProviderTrait} trait.
