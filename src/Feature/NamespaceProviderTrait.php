@@ -38,6 +38,7 @@ trait NamespaceProviderTrait
      * namespace of the class which uses the trait.
      *
      * @return string
+     * @throws \ReflectionException
      */
     public function getNamespace()
     {

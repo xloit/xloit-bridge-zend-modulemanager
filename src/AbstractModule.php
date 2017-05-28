@@ -43,7 +43,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\ArrayUtils;
 
 /**
- * An {@link AbstractModule} abstract class
+ * An {@link AbstractModule} abstract class.
  *
  * @abstract
  * @package Xloit\Bridge\Zend\ModuleManager
@@ -175,7 +175,6 @@ class AbstractModule
     /**
      * Get autoloader config.
      *
-     *
      * @return array
      */
     public function getAutoloaderConfig()
@@ -198,7 +197,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -208,7 +207,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -218,7 +217,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -228,7 +227,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -238,7 +237,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -258,7 +257,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -268,7 +267,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -278,7 +277,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -288,7 +287,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -298,7 +297,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -308,7 +307,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -318,7 +317,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -328,7 +327,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -338,7 +337,7 @@ class AbstractModule
     }
 
     /**
-     * Expected to return \Zend\ServiceManager\Config object or array to seed such an object.
+     * Expected to return {@link \Zend\ServiceManager\Config} object or array to seed such an object.
      *
      * @return array|\Traversable
      */
@@ -369,6 +368,7 @@ class AbstractModule
      * @param string $file
      *
      * @return array
+     * @throws \ReflectionException
      */
     protected function getFileConfig($file)
     {

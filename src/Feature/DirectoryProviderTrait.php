@@ -39,6 +39,7 @@ trait DirectoryProviderTrait
      * the directory of the class which uses the trait.
      *
      * @return string
+     * @throws \ReflectionException
      */
     public function getDirectory()
     {
